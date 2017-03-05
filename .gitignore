@@ -1,4 +1,5 @@
 start.sh
 start.bat
+node_modules/*
 db/*
 !databases_are_stored_here
