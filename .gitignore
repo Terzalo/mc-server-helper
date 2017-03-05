@@ -1,3 +1,4 @@
 start.sh
+start.bat
 db/*
 !databases_are_stored_here

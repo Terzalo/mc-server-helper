@@ -1,0 +1,17 @@
+SET ADDONS=["discord_bot", "activity", "backup"]
+
+SET MC_CONSOLE=craftserve
+SET MC_CRAFTSERVE_URL=wss://craftserve.pl/websocket/server?sid=0123456
+SET "MC_CRAFTSERVE_COOKIE=websocket_cookie"
+
+SET SERVER_ADDRESS=minecraft.example.com
+
+SET "MOTD=Have fun!"
+
+SET DISCORD_TOKEN=bot_token
+SET "DISCORD_GUILDS=[ { 'id': 'guild_id_1', 'channels': ['minecraft_server'] }, { 'id': 'guild_id_2' } ]"
+
+SET "BACKUP_CMD=backup.bat"
+SET "BACKUP_SCHEDULE=0 0 * * *"
+
+node --max_old_space_size=250 helper.js
