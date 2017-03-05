@@ -1,0 +1,3 @@
+start.sh
+db/*
+!databases_are_stored_here

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+ADDONS='["discord_bot", "activity", "backup"]' \
+\
+MC_CONSOLE=craftserve \
+MC_CRAFTSERVE_URL="wss://craftserve.pl/websocket/server?sid=0123456" \
+MC_CRAFTSERVE_COOKIE="websocket_cookie" \
+\
+SERVER_ADDRESS="minecraft.example.com" \
+\
+DISCORD_TOKEN='bot_token' \
+DISCORD_GUILDS='[ { "id": "guild_id_1", "channels": ["minecraft_server"] }, { "id": "guild_id_2" } ]' \
+\
+BACKUP_CMD='cp -R ~/minecraft/world ~/mc_backups/backup_$(date +"%Y%m%d_%H%M")' \
+BACKUP_SCHEDULE='0 0 * * *' \
+\
+node $(dirname $0)/helper.js
