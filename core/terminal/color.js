@@ -6,9 +6,11 @@ const readline = require('readline');
 const chalk = require('chalk');
 
 var _mcConsole;
+var _errLevel;
 
 function init(config, modules) {
   _mcConsole = modules.core.mcConsole;
+  _errLevel = config.terminal.errLevel;
 
   //Create command-line interface
   var rl = readline.createInterface({
@@ -39,14 +41,17 @@ function processInput( line ) {
 
 function consoleLine( time, stream, msg ) {
   console.log( chalk.grey(time) + " " + chalk.blue(stream) + " " + msg );
+  if (_errLevel === 0) console.warn( time + " " + stream + " " + msg );
 }
 
 function notify( msg ) {
   console.log( chalk.blue(msg) );
+  if (_errLevel <= 1) console.warn( msg );
 }
 
 function error( msg ) {
   console.log( chalk.red(msg) );
+  if (_errLevel <= 2) console.warn( msg );
 }
 
 module.exports = {
