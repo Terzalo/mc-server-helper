@@ -41,12 +41,37 @@ function init(config, modules) {
   _db.run("CREATE TABLE IF NOT EXISTS 'discord_users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'mc_name' TEXT COLLATE NOCASE, 'discord_name' TEXT);");
 
   client.on('message', handleMessage);
+  client.on('disconnect', handleDisconnect);
+  client.on('error', handleError);
+  client.on('reconnecting', handleReconnecting);
+  client.on('ready', handleReady);
+  client.on('warn', handleWarn);
 
   client.login(_token);
 }
 
 function registerCommand( pattern, exec, description ) {
   _commands.push( { pattern: pattern, exec: exec, description: description } );
+}
+
+function handleError( error ) {
+  _terminal.error("Discord error: " + error.message);
+}
+
+function handleDisconnect( event ) {
+  _terminal.error("Discord disconnected " + event.code + " : " + event.reason);
+}
+
+function handleReconnecting() {
+  _terminal.notify("Discord reconnecting");
+}
+
+function handleReady() {
+  _terminal.notify("Discord ready");
+}
+
+function handleWarn( info ) {
+  _terminal.notify("Discord warning : " + info);
 }
 
 function handleMessage( message ) {
@@ -90,13 +115,13 @@ function updateOnline( online ) {
   var dsIds = {};
   _db.each( query, online, function(err, row) {
     if (err) {
-      _terminal.error(chalk.red('DB error: ' + err.message));
+      _terminal.error('DB error: ' + err.message);
       return;
     };
     dsIds[row.mc_name.toLowerCase()] = row.discord_name;
   }, function(err, rows) {
     if (err) {
-      _terminal.error(chalk.red('DB error: ' + err.message));
+      _terminal.error('DB error: ' + err.message);
       return;
     };
     _online = [];
